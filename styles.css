@@ -1,0 +1,105 @@
+:root {
+    --headerBg: #ccf;
+    --font: #333;
+    --border: #444;
+    --btnBgNeutral: #eee;
+    --btnBgNeutralHover: #ddd;
+    --btnBgPositive: rgb(175, 231, 167);
+    --btnBgPositiveHover: rgb(152, 226, 142);
+    --btnBgNegative: rgb(212, 147, 147);
+    --cardBg: #ccc;
+    --bg: #eee;
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--font);
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-width: 300px;
+    min-height: 500px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--headerBg);
+    padding: 35px;
+    border-bottom: 2px solid var(--border);
+}
+
+.header h1 {
+    font-size: 84px;
+}
+
+.btn {
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    padding: 20px 10px;
+    transition: 0.3s;
+    font-weight: bold;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn.logIn {
+    background-color: var(--btnBgNeutral);
+    font-size: 24px;
+}
+
+.btn.logIn:hover {
+    transform: scale(1.2);
+    background-color: var(--btnBgNeutralHover);
+}
+
+.main {
+    flex:1;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.btn.addBook {
+    background-color: var(--btnBgPositive);
+    font-size: 48px;
+}
+
+.btn.addBook.btn:hover {
+    background-color: var(--btnBgPositiveHover);
+}
+
+.booksContainer {
+
+}
+
+.footer {
+    text-align: center;
+}
+
+.footer img {
+    height: 24px;
+    width: auto;
+    transition: 0.5s;
+}
+
+.footer img:hover {
+    height: 24px;
+    width: auto;
+    transform: scale(1.2) rotate(360deg);
+    cursor: pointer;
+}
