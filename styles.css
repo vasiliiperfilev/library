@@ -103,3 +103,51 @@ body {
     transform: scale(1.2) rotate(360deg);
     cursor: pointer;
 }
+
+/* pop-up form */
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.bookForm {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+    font-size: 24px;
+    width: 30%;
+    height: 90%;
+    border-radius: 5px;
+    padding: 20px;
+    border:2px solid var(--border);
+    background-color: var(--bg);
+}
+
+.textInput {
+    font-size: 32px;
+    font-weight: bold;
+    width: 70%;
+    border-radius: 5px;
+    border: inherit;
+    padding: 10px;
+}
+
+.isFinishedInput {
+    transform: scale(1.5);
+}
+
+.btn.submit {
+    background-color: var(--btnBgPositive);
+    font-size: 24px;
+}
+
+.btn.submit:hover {
+    background-color: var(--btnBgPositiveHover);
+}
