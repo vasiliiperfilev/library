@@ -5,8 +5,9 @@
     --btnBgNeutral: #eee;
     --btnBgNeutralHover: #ddd;
     --btnBgPositive: rgb(175, 231, 167);
-    --btnBgPositiveHover: rgb(152, 226, 142);
+    --btnBgPositiveHover: rgb(135, 224, 123);
     --btnBgNegative: rgb(212, 147, 147);
+    --btnBgNegativeHover: rgb(206, 116, 116);
     --cardBg: #ccc;
     --bg: #eee;
   }
@@ -74,17 +75,52 @@ body {
     padding: 25px;
 }
 
-.btn.addBook {
+.btn.addBook,
+.btn.readBook {
     background-color: var(--btnBgPositive);
     font-size: 48px;
 }
 
-.btn.addBook.btn:hover {
+.btn.addBook:hover,
+.btn.readBook:hover {
     background-color: var(--btnBgPositiveHover);
 }
 
 .booksContainer {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 35px;
+}
 
+.book {
+    background-color: var(--cardBg);
+    border: 2px solid var(--border);
+    border-radius: 5px;
+    font-size: 32px;
+    font-weight: bold;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    width: 30%;
+}
+
+.btn.readBook {
+    width: 100%;
+    font-size: 24px;
+}
+
+.btn.removeBook {
+    width: 100%;
+    font-size: 24px;
+    background-color: var(--btnBgNegative);
+}
+
+.btn.btn.removeBook:hover {
+    background-color: var(--btnBgNegativeHover);
 }
 
 .footer {
