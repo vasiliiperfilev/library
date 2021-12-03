@@ -2,6 +2,7 @@ library = [];
 
 const overlay = document.querySelector(".overlay");
 const bookForm = document.querySelector(".bookForm");
+const bookTemplate = document.querySelector("#bookCardTemplate");
 
 document.querySelector(".btn.addBook").addEventListener('click', showBookForm);
 document.querySelector(".btn.submit").addEventListener('click', createBook);
@@ -22,14 +23,21 @@ function showBookForm(){
 }
 
 function closeBookForm() {
-    if (this != overlay) return;
     overlay.style.display = 'none';
     bookForm.style.display = 'none';
 }
 
-function createBook() {
-    const inputs = document.querySelectorAll(".bookForm input");
+function createBook(e) {
+    e.preventDefault();
+
+    const inputs = document.querySelectorAll(".bookParam");
     const inputValues = [];
     inputs.forEach((input) => inputValues.push(input.value))
     const newBook = new Book(...inputValues);
+    
+    const clone = document.importNode(bookTemplate.content, true); 
+    clone.querySelector(".title").textContent = newBook.title;
+    clone.querySelector(".author").textContent = newBook.author;
+    clone.querySelector(".pages").textContent = newBook.pages;
+    document.body.querySelector(".booksContainer").appendChild(clone);
 }

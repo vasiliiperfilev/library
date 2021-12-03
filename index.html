@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <script src="script.js" defer></script>
     <link rel="icon" type="image/x-icon" href="images/favico.png">
 </head>
+
 <body>
     <div class="header">
         <h1>LIBRARY</h1>
@@ -19,17 +21,11 @@
             <input class="btn addBook" type="button" value="Add book">
         </div>
         <div class="booksContainer">
-            <div class="book">
-                <p class="title">Dummy text</p>
-                <p class="author">Dummy text</p>
-                <p class="pages">Dummy text</p>
-                <input class="btn readBook"type="button" value="Read">
-                <input class="btn removeBook" type="button" value="Remove">
-            </div>
+
         </div>
     </div>
     <div class="footer">
-        Copyright &copy; 2021 Vasilii Perfilev 
+        Copyright &copy; 2021 Vasilii Perfilev
         <a href="https://github.com/vasiliiperfilev"><img src="images/GitHub-Mark-64px.png" alt="GitHub logo"></a>
     </div>
     <div class="overlay">
@@ -42,5 +38,14 @@
             <input class="btn submit" type="submit" value="Submit">
         </form>
     </div>
+    <template id="bookCardTemplate">
+        <div class="book">
+            <p class="title">Dummy text</p>
+            <p class="author">Dummy text</p>
+            <p class="pages">Dummy text</p>
+            <input class="btn readBook" type="button" value="Read">
+            <input class="btn removeBook" type="button" value="Remove">
+        </div>
+    </template>
 </body>
 </html>
