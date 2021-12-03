@@ -97,7 +97,7 @@ body {
     background-color: var(--cardBg);
     border: 2px solid var(--border);
     border-radius: 5px;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
     padding: 20px;
     display: flex;
@@ -108,14 +108,13 @@ body {
     width: 30%;
 }
 
-.btn.readBook {
-    width: 100%;
+.book .btn {
+    width: 70%;
     font-size: 24px;
+    padding: 10px;
 }
 
 .btn.removeBook {
-    width: 100%;
-    font-size: 24px;
     background-color: var(--btnBgNegative);
 }
 
