@@ -107,6 +107,7 @@ body {
 /* pop-up form */
 
 .overlay {
+    display: none;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -114,11 +115,11 @@ body {
 }
 
 .bookForm {
+    display: none;
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: -50%;
     transform: translate(-50%, -50%);
-    display: flex;
     flex-direction: column;
     justify-content:space-around;
     align-items: center;
@@ -129,6 +130,17 @@ body {
     padding: 20px;
     border:2px solid var(--border);
     background-color: var(--bg);
+    transition: 0.5s;
+}
+
+.popUpAnim {
+    animation: drop 0.5s ease forwards;
+}
+
+@keyframes drop {
+    0% {opacity: 0;}
+    70% {top: 55%}
+    100% {top: 50%}
 }
 
 .textInput {
