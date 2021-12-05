@@ -78,12 +78,15 @@ body {
 .btn.addBook,
 .btn.readBook {
     background-color: var(--btnBgPositive);
-    font-size: 48px;
 }
 
 .btn.addBook:hover,
 .btn.readBook:hover {
     background-color: var(--btnBgPositiveHover);
+}
+
+.btn.addBook {
+    font-size: 48px;
 }
 
 .booksContainer {
@@ -115,11 +118,13 @@ body {
     padding: 10px;
 }
 
-.btn.removeBook {
+.btn.removeBook,
+.bookIsNotRead {
     background-color: var(--btnBgNegative);
 }
 
-.btn.btn.removeBook:hover {
+.btn.btn.removeBook:hover,
+.bookNotRead:hover {
     background-color: var(--btnBgNegativeHover);
 }
 
