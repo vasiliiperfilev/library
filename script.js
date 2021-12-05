@@ -5,7 +5,7 @@ const bookForm = document.querySelector(".bookForm");
 const bookTemplate = document.querySelector("#bookCardTemplate");
 
 document.querySelector(".btn.addBook").addEventListener('click', showBookForm);
-document.querySelector(".btn.submit").addEventListener('click', createBook);
+document.querySelector(".bookForm").addEventListener('submit', createBook);
 //close bookform if click on overlay
 overlay.addEventListener('click', closeBookForm)
 //stop propagation of closeBookForm in case of click on bookForm itself
@@ -39,6 +39,11 @@ function createBook(e) {
     inputs.forEach((input) => inputValues.push(input.value))
     const newBook = new Book(...inputValues);
     newBook.isFinished = inputs[3].checked;
+    //check for duplicates
+    if (findBookIndex(newBook.title, newBook.author) == false) {
+        alert("Book already exists!");
+        return;
+    }
     library.push(newBook);
     
     const clone = document.importNode(bookTemplate.content, true); 
