@@ -5,8 +5,8 @@ const bookForm = document.querySelector(".bookForm");
 const bookTemplate = document.querySelector("#bookCardTemplate");
 
 document.querySelector(".btn.addBook").addEventListener('click', showBookForm);
-document.querySelector(".bookForm").addEventListener('submit', createBook);
-//close bookform if click on overlay
+document.querySelector(".bookForm").addEventListener('submit', addBookCard);
+
 overlay.addEventListener('click', closeBookForm)
 //stop propagation of closeBookForm in case of click on bookForm itself
 bookForm.addEventListener('click', (e) => e.stopPropagation());
@@ -26,14 +26,23 @@ function showBookForm(){
 
 function closeBookForm() {
     bookForm.querySelectorAll(".bookParam").forEach((input => input.value = ""));
+    bookForm.querySelector(".isFinishedInput").checked = false;
     overlay.style.display = 'none';
     bookForm.style.display = 'none';
 }
 
-function createBook(e) {
+function addBookCard(e) {
     //prevent submit from refreshing page
     e.preventDefault();
+    let newBook = createBook();
+    if (newBook){
+        bookCard = createBookCardFromTemplate(newBook, bookTemplate)
+        document.body.querySelector(".booksContainer").appendChild(bookCard);
+        closeBookForm()
+    }
+}
 
+function createBook(){
     const inputs = document.querySelectorAll(".bookParam");
     const inputValues = [];
     inputs.forEach((input) => inputValues.push(input.value))
@@ -42,49 +51,51 @@ function createBook(e) {
     //check for duplicates
     if (findBookIndex(newBook.title, newBook.author) == false) {
         alert("Book already exists!");
-        return;
+        return false;
     }
     library.push(newBook);
-    
-    const clone = document.importNode(bookTemplate.content, true); 
-    clone.querySelector(".title").textContent = newBook.title;
-    clone.querySelector(".author").textContent = newBook.author;
-    clone.querySelector(".pages").textContent = newBook.pages;
-    const readStateBtn = clone.querySelector(".readBook");
-    //button state if not finished
-    if (newBook.isFinished == false){
-        readStateBtn.classList.add("bookIsNotRead");
-        readStateBtn.classList.remove("readBook");
-        readStateBtn.value = "Not read";
-    }
-    //add event listener to read button
-    readStateBtn.addEventListener('click', changeReadState);
+    return newBook;
+}
 
-    document.body.querySelector(".booksContainer").appendChild(clone);
-    closeBookForm();
+function createBookCardFromTemplate(newBook, template){
+    const templateClone = document.importNode(template.content, true); 
+    templateClone.querySelector(".title").textContent = newBook.title;
+    templateClone.querySelector(".author").textContent = newBook.author;
+    templateClone.querySelector(".pages").textContent = newBook.pages;
+    const readStateBtn = templateClone.querySelector(".readBook");
+    const removeBookBtn = templateClone.querySelector(".btn.removeBook");
+    setReadButtonStyle(newBook, readStateBtn);
+    
+    readStateBtn.addEventListener('click', changeReadState);
+    removeBookBtn.addEventListener('click', removeBook);
+    return templateClone;
 }
 
 function changeReadState(e){
-    let bookCard = e.target.parentElement;
-    let title = bookCard.querySelector(".title").textContent;
-    let author = bookCard.querySelector(".author").textContent;
-    let index = findBookIndex(title, author);
-    let book = library[index];
+    let index = findBookByCard(this.parentElement)[0];
+    let book = findBookByCard(this.parentElement)[1];
     if (book.isFinished === false){
-        let readStateBtn = bookCard.querySelector(".bookIsNotRead");
         book.isFinished = true;
-        readStateBtn.classList.add("readBook");
-        readStateBtn.classList.remove("bookIsNotRead");
-        readStateBtn.value = "Read";
+        setReadButtonStyle(book, this);
     }
     else {
-        let readStateBtn = bookCard.querySelector(".readBook");
         book.isFinished = false;
-        readStateBtn.classList.add("bookIsNotRead");
-        readStateBtn.classList.remove("readBook");
-        readStateBtn.value = "Not read";
+        setReadButtonStyle(book, this);
     }
     library[index] = book;
+}
+
+function setReadButtonStyle(book, button) {
+    if (book.isFinished === false){
+        button.classList.add("bookIsNotRead");
+        button.classList.remove("readBook");
+        button.value = "Not read";
+    }
+    else {
+        button.classList.add("readBook");
+        button.classList.remove("bookIsNotRead");
+        button.value = "Read";
+    }
 }
 
 function findBookIndex(title, author){
@@ -94,4 +105,18 @@ function findBookIndex(title, author){
         }
     }
     return null;
+}
+
+function findBookByCard(card){
+    let title = card.querySelector(".title").textContent;
+    let author = card.querySelector(".author").textContent;
+    let index = findBookIndex(title, author);
+    let book = library[index];
+    return [index, book];
+}
+
+function removeBook() {
+    let index = findBookByCard(this.parentElement)[0];
+    library.splice(index,1);
+    this.parentElement.remove();
 }
