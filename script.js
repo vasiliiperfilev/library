@@ -32,14 +32,22 @@ function closeBookForm() {
 }
 
 function addBookCard(e) {
-    //prevent submit from refreshing page
     e.preventDefault();
     let newBook = createBook();
     if (newBook){
         bookCard = createBookCardFromTemplate(newBook, bookTemplate)
         document.body.querySelector(".booksContainer").appendChild(bookCard);
-        closeBookForm()
+        closeBookForm();
+        library.push(newBook);
     }
+}
+
+function checkIfDuplicate(book){
+    if (findBookIndex(book.title, book.author) != null) {
+        alert("Book already exists!");
+        return true;
+    }
+    return false;
 }
 
 function createBook(){
@@ -48,12 +56,7 @@ function createBook(){
     inputs.forEach((input) => inputValues.push(input.value))
     const newBook = new Book(...inputValues);
     newBook.isFinished = inputs[3].checked;
-    //check for duplicates
-    if (findBookIndex(newBook.title, newBook.author) == false) {
-        alert("Book already exists!");
-        return false;
-    }
-    library.push(newBook);
+    if (checkIfDuplicate(newBook)) return false;
     return newBook;
 }
 
@@ -65,7 +68,6 @@ function createBookCardFromTemplate(newBook, template){
     const readStateBtn = templateClone.querySelector(".readBook");
     const removeBookBtn = templateClone.querySelector(".btn.removeBook");
     setReadButtonStyle(newBook, readStateBtn);
-    
     readStateBtn.addEventListener('click', changeReadState);
     removeBookBtn.addEventListener('click', removeBook);
     return templateClone;
@@ -74,14 +76,8 @@ function createBookCardFromTemplate(newBook, template){
 function changeReadState(e){
     let index = findBookByCard(this.parentElement)[0];
     let book = findBookByCard(this.parentElement)[1];
-    if (book.isFinished === false){
-        book.isFinished = true;
-        setReadButtonStyle(book, this);
-    }
-    else {
-        book.isFinished = false;
-        setReadButtonStyle(book, this);
-    }
+    book.isFinished = !book.isFinished;
+    setReadButtonStyle(book, this);
     library[index] = book;
 }
 
