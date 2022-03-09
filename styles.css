@@ -91,7 +91,7 @@ body {
 
 .booksContainer {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items:center;
     column-gap: 30px;
     padding: 35px;
